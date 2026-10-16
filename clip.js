@@ -6,6 +6,7 @@ function writeFile(p, s) { $(s).writeToFileAtomicallyEncodingError(p, true, $.NS
 function run(argv) {
   var pb = $.NSPasteboard.generalPasteboard, cmd = argv[0];
   if (cmd === "count") return String(pb.changeCount);
+  if (cmd === "front") return ObjC.unwrap($.NSWorkspace.sharedWorkspace.frontmostApplication.localizedName);
   if (cmd === "mods") return String($.NSEvent.modifierFlags & 0xFFFF0000);
   if (cmd === "read") {  // dump every type as base64 to file
     var out = { count: pb.changeCount, types: {} };

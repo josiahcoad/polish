@@ -13,6 +13,7 @@ API_URL = (open(URL_FILE).read().strip() if os.path.exists(URL_FILE) else "") or
 MODEL = "claude-haiku-5-5"
 KEY_FILE = os.path.expanduser("~/.config/polish/key")
 CLIP_JS = os.path.expanduser("~/.config/polish/clip.js")
+LOG_FILE = os.path.expanduser("~/.config/polish/error.log")
 
 STYLE_FILE = os.path.expanduser("~/.config/polish/style.txt")  # editable via ⌘⌥⌃, (Polish Settings)
 
@@ -59,9 +60,10 @@ def clip(*args):
                           capture_output=True, text=True).stdout.strip()
 
 def keystroke(key):
-    subprocess.run(["osascript", "-e",
-                    f'tell application "System Events" to keystroke "{key}" using command down'],
-                   capture_output=True)
+    """Press ⌘<key>; returns macOS's error text ("" on success)."""
+    return subprocess.run(["osascript", "-e",
+                           f'tell application "System Events" to keystroke "{key}" using command down'],
+                          capture_output=True, text=True).stderr.strip()
 
 def notify(msg):
     subprocess.run(["osascript", "-e", f'display notification "{msg}" with title "Polish"'],
@@ -372,13 +374,17 @@ def main():
         time.sleep(0.05)
     saved = read_clipboard()
     before = clip("count")
-    keystroke("c")
+    err = keystroke("c")
     for _ in range(20):
         time.sleep(0.05)
         if clip("count") != before:
             break
     else:
-        notify("Couldn't copy the selection. Give Accessibility access to the app you're in.")
+        app = clip("front") or "the app you're in"
+        with open(LOG_FILE, "a") as f:
+            f.write(f"--- {time.ctime()} copy failed in {app}: {err or 'clipboard unchanged'}\n")
+        notify(f"Couldn't copy from {app}. Turn on {app} in Accessibility settings, then try again.")
+        subprocess.run(["open", "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"])
         return
     try:
         write_clipboard(polish(read_clipboard()))
@@ -412,8 +418,6 @@ def settings():
             os.write(fd, key.encode()); os.close(fd)
             notify("API key saved")
 
-
-LOG_FILE = os.path.expanduser("~/.config/polish/error.log")
 
 if __name__ == "__main__":
     try:
