@@ -25,11 +25,13 @@ Turn rough messages into polished ones in Slack, Gmail and iMessage, especially 
 
 ## How it compares
 
-| | Keeps formatting | Works in |
-|---|---|---|
-| **Polish** | Yes: bold, links, lists, emoji, @mentions, blank lines | Any app where you can select text |
-| Wispr Flow commands | No, especially in Slack | Any app |
-| Gmail "Polish" | No | Gmail only |
+| | The catch |
+|---|---|
+| **Polish** | None: keeps formatting, works in any app, takes about a second, and costs well under $1 a month on your own API key |
+| Grammarly | $30 a month |
+| Pasting into ChatGPT or Claude | Slow and cumbersome: copy, switch apps, prompt, copy back, fix the formatting |
+| Wispr Flow commands | Doesn't keep formatting, especially in Slack |
+| Gmail "Polish" | Doesn't keep formatting, and only works in Gmail |
 
 ## How it works
 
