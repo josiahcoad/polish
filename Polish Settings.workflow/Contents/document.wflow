@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>/usr/bin/python3 "$HOME/.config/polish/polish.py" --settings</string>
+					<string>PYTHONMALLOC=malloc /usr/bin/python3 "$HOME/.config/polish/polish.py" --settings</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>

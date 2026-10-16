@@ -413,5 +413,14 @@ def settings():
             notify("API key saved")
 
 
+LOG_FILE = os.path.expanduser("~/.config/polish/error.log")
+
 if __name__ == "__main__":
-    settings() if "--settings" in sys.argv else main()
+    try:
+        settings() if "--settings" in sys.argv else main()
+    except BaseException as e:  # never surface Automator's opaque error; log it and notify instead
+        import traceback
+        with open(LOG_FILE, "a") as f:
+            f.write(f"--- {time.ctime()} {sys.argv[1:]}\n{traceback.format_exc()}\n")
+        notify(f"Polish hit an error ({type(e).__name__}); details in ~/.config/polish/error.log")
+    sys.exit(0)
