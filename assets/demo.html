@@ -1,0 +1,75 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Polish demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1600px; background: #f4f2ee; font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; color: #1d1c1d; padding: 56px 64px 60px; }
+  header { display: flex; align-items: baseline; gap: 18px; margin-bottom: 36px; }
+  h1 { font-size: 40px; letter-spacing: -0.02em; }
+  header p { font-size: 20px; color: #6b6760; }
+  kbd { font: 600 15px -apple-system, sans-serif; background: #fff; border: 1px solid #d9d4cb; border-bottom-width: 3px; border-radius: 7px; padding: 3px 9px; }
+  .row { display: grid; grid-template-columns: 1fr 150px 1fr; align-items: stretch; margin-bottom: 28px; }
+  .label { grid-column: 1 / -1; font: 600 13px -apple-system, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #8a857c; margin-bottom: 10px; }
+  .arrow { align-self: center; display: flex; flex-direction: column; align-items: center; gap: 8px; color: #6b6760; font-size: 14px; }
+  .arrow svg { width: 70px; height: 24px; }
+  .time { font: 700 22px -apple-system, sans-serif; color: #1d1c1d; }
+  .card { background: #fff; border-radius: 14px; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); padding: 22px 24px; min-height: 170px; }
+  .before { opacity: .92; }
+  /* chat-app style */
+  .chat { display: flex; gap: 12px; }
+  .avatar { width: 40px; height: 40px; border-radius: 8px; background: #4a154b; color: #fff; display: grid; place-items: center; font-weight: 700; flex: none; }
+  .name { font-weight: 800; } .stamp { color: #8a857c; font-size: 13px; margin-left: 6px; }
+  .chat ul { margin: 2px 0 2px 22px; padding: 0; } .mention { background: #e8f1fb; color: #1264a3; border-radius: 4px; padding: 0 3px; }
+  /* email style */
+  .mail .meta { border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 12px; color: #5f6368; font-size: 14px; }
+  .mail .meta b { color: #202124; font-weight: 500; }
+  .mail .body { font: 15px/1.5 Arial, Helvetica, sans-serif; color: #222; white-space: pre-line; }
+  /* text-message style */
+  .sms { background: #fff; display: flex; flex-direction: column; justify-content: center; }
+  .bubble { align-self: flex-end; max-width: 88%; background: #0a84ff; color: #fff; font-size: 17px; padding: 10px 15px; border-radius: 20px 20px 6px 20px; }
+  .delivered { align-self: flex-end; color: #8a857c; font-size: 12px; margin-top: 4px; }
+  footer { margin-top: 10px; color: #6b6760; font-size: 15px; }
+</style></head>
+<body>
+<header><h1>Polish</h1><p>Select a message, press <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>⌃</kbd> <kbd>P</kbd>, and it's rewritten in place, formatting intact.</p></header>
+
+<div class="row">
+  <div class="label">Chat (Slack): lists, bold, emoji and @mentions survive</div>
+  <div class="card before"><div class="chat"><div class="avatar">J</div><div>
+    <div><span class="name">Josiah</span><span class="stamp">9:41 AM</span></div>
+    <div><span class="mention">@maya</span> quick status 🚀</div>
+    <ul><li><b>auth fix</b> merged, deploying tmrw am</li><li>eval suite still flaky, looking into it</li></ul>
+    <div>lmk if u need anything b4 the demo</div></div></div></div>
+  <div class="arrow"><span class="time">0.8s</span><svg viewBox="0 0 70 24"><path d="M2 12h62M54 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Haiku 5.5</span></div>
+  <div class="card"><div class="chat"><div class="avatar">J</div><div>
+    <div><span class="name">Josiah</span><span class="stamp">9:41 AM</span></div>
+    <div><span class="mention">@maya</span> quick status 🚀</div>
+    <ul><li><b>auth fix</b> merged, and I'm deploying it tomorrow morning</li><li>eval suite is still flaky, so I'm looking into it</li></ul>
+    <div>Let me know if you need anything before the demo</div></div></div></div>
+</div>
+
+<div class="row">
+  <div class="label">Email (Gmail): paragraphs and blank lines stay put</div>
+  <div class="card mail before"><div class="meta"><b>To</b> Sarah Chen &nbsp;·&nbsp; <b>Subject</b> SOW</div><div class="body">hi sarah
+
+thx for call today. attached the sow, lmk if any q's. we can kick off mon if u sign by fri
+
+best
+josiah</div></div>
+  <div class="arrow"><span class="time">0.9s</span><svg viewBox="0 0 70 24"><path d="M2 12h62M54 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Haiku 5.5</span></div>
+  <div class="card mail"><div class="meta"><b>To</b> Sarah Chen &nbsp;·&nbsp; <b>Subject</b> SOW</div><div class="body">Hi Sarah,
+
+Thanks for the call today. I've attached the SOW, so let me know if you have any questions. We can kick off Monday if you sign by Friday.
+
+Best,
+Josiah</div></div>
+</div>
+
+<div class="row">
+  <div class="label">Text message (iMessage): shorthand to full sentences</div>
+  <div class="card sms before"><div class="bubble">running late srry, traffic is crazy. be there in 15 save me a seat</div><div class="delivered">Delivered</div></div>
+  <div class="arrow"><span class="time">0.9s</span><svg viewBox="0 0 70 24"><path d="M2 12h62M54 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Haiku 5.5</span></div>
+  <div class="card sms"><div class="bubble">I'm running late, sorry. Traffic is crazy. I'll be there in 15 minutes, so save me a seat.</div><div class="delivered">Delivered</div></div>
+</div>
+
+<footer>Real outputs from claude-haiku-5-5. Times are model latency per message; the copy and paste around it adds about 0.3s.</footer>
+</body></html>

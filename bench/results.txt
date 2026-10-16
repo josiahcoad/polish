@@ -1,0 +1,11 @@
+model claude-haiku-5-5, 10 runs per message
+
+slack     median 0.72s  p90 0.83s
+          -> '@maya quick status :rocket:\n- <b>Auth fix</b> merged, deploying tomorrow morning\n- Eval suite is still flaky, looking into it\nLet me know if you need anything before the demo'
+gmail     median 1.03s  p90 1.09s
+          -> "Hi Sarah,\n\nThanks for the call today. I've attached the SOW. Let me know if you have any questions. We can kick off on Monday if you sign by Friday.\n\nBest,\nJosiah"
+imessage  median 0.97s  p90 1.05s
+          -> "I'm running late, sorry, traffic is crazy. I'll be there in 15 minutes, so save me a seat."
+
+all       median 0.96s  min 0.66s  max 1.49s
+overhead  start-up 0.07s + clipboard 0.39s

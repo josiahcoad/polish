@@ -1,0 +1,13 @@
+.DS_Store
+__pycache__/
+key
+api_url
+style.txt
+.env
+.env.*
+*.pem
+*.key
+*.crt
+credentials.json
+.venv/
+node_modules/
