@@ -21,7 +21,7 @@ cat <<'EOF'
 
 Installed.
   ⌘⌥⌃P  polish the selected text
-  ⌘⌥⌃,  settings (style, shortcut, API key)
+  ⌘⌥⌃,  settings (prompt, shortcut, API key)
 
 First run: macOS asks to allow the app you're typing in to control your computer
 (System Settings → Privacy & Security → Accessibility). Polish needs this to copy and paste.

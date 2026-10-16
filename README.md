@@ -11,7 +11,7 @@ git clone https://github.com/josiahcoad/polish.git && cd polish && ./install.sh
 The installer asks for an [Anthropic API key](https://console.anthropic.com/settings/keys) and installs two Quick Actions:
 
 - **⌘⌥⌃P** polishes the selected text.
-- **⌘⌥⌃,** opens settings: edit the style prompt, change the shortcut, or replace your API key.
+- **⌘⌥⌃,** opens settings: edit the prompt, change the shortcut, or replace your API key.
 
 The first time you use it, macOS asks to let the app you're typing in control your computer (System Settings → Privacy & Security → Accessibility). Polish needs this to copy your selection and paste the result.
 
@@ -45,5 +45,5 @@ Files live in `~/.config/polish/`:
 | File | Purpose |
 |---|---|
 | `key` | Your API key (only you can read it) |
-| `style.txt` | Your style prompt, created the first time you choose **Edit style** |
+| `style.txt` | Your style prompt, created the first time you choose **Edit prompt** |
 | `api_url` | Optional: send requests through a proxy or gateway instead of `api.anthropic.com` |

@@ -394,9 +394,9 @@ def osa(script):
     return subprocess.run(["osascript", "-e", script], capture_output=True, text=True).stdout.strip()
 
 def settings():
-    choice = osa('choose from list {"Edit style", "Change shortcut", "Set API key"} '
-                 'with title "Polish" with prompt "Polish settings" default items {"Edit style"}')
-    if choice == "Edit style":
+    choice = osa('choose from list {"Edit prompt", "Change shortcut", "Set API key"} '
+                 'with title "Polish" with prompt "Polish settings" default items {"Edit prompt"}')
+    if choice == "Edit prompt":
         if not os.path.exists(STYLE_FILE):
             open(STYLE_FILE, "w").write(DEFAULT_STYLE)
         subprocess.run(["open", "-e", STYLE_FILE])
