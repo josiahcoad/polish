@@ -112,6 +112,28 @@ def llm(text):
     return out
 
 
+LINE_PREFIX_RE = re.compile(r"^( *)(\d+\.|[-\u2022*]|>)[ \t]+")
+
+def keep_line_prefixes(src, out):
+    """The model sometimes drops list numbers/bullets/quote markers. When it kept the same number of
+    non-blank lines, put each source line's prefix back (replacing whatever the model put there)."""
+    s_lines, o_lines = src.split("\n"), out.split("\n")
+    s_idx = [i for i, l in enumerate(s_lines) if l.strip()]
+    o_idx = [i for i, l in enumerate(o_lines) if l.strip()]
+    if len(s_idx) != len(o_idx):
+        return out
+    for si, oi in zip(s_idx, o_idx):
+        m = LINE_PREFIX_RE.match(s_lines[si])
+        if not m:
+            continue
+        body = LINE_PREFIX_RE.sub("", o_lines[oi])
+        o_lines[oi] = m.group(0) + body.lstrip()
+    return "\n".join(o_lines)
+
+def polish_markup(text):
+    return keep_line_prefixes(text, llm(text))
+
+
 # ---------- Chromium custom-data pickle ----------
 
 def unpickle(b):
@@ -354,16 +376,16 @@ def polish(types):
         if TEXTY in custom:
             ops = json.loads(custom[TEXTY])["ops"]
             markup, embeds, trailing = delta_to_markup(ops)
-            new_ops = markup_to_delta(llm(markup), embeds, trailing)
+            new_ops = markup_to_delta(polish_markup(markup), embeds, trailing)
             plain = delta_to_plain(new_ops)
             custom[TEXTY] = json.dumps({"ops": new_ops}, ensure_ascii=False, separators=(",", ":"))
             custom[PLAIN] = plain
             return {PLAIN: plain.encode(), SLACK_TYPE: pickle(custom)}
     if HTML_TYPE in types:
         # Normalize to one line per block so blank lines survive editors (Gmail) that collapse empty <p></p>.
-        out = llm(html_to_markup(types[HTML_TYPE].decode("utf-8", "replace")))
+        out = polish_markup(html_to_markup(types[HTML_TYPE].decode("utf-8", "replace")))
         return {HTML_TYPE: markup_to_html(out).encode(), PLAIN: markup_to_plain(out).encode()}
-    return {PLAIN: llm(types.get(PLAIN, b"").decode("utf-8", "replace")).encode()}
+    return {PLAIN: polish_markup(types.get(PLAIN, b"").decode("utf-8", "replace")).encode()}
 
 
 def main():
