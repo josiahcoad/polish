@@ -112,7 +112,7 @@ def llm(text):
     return out
 
 
-LINE_PREFIX_RE = re.compile(r"^( *)(\d+\.|[-\u2022*]|>)[ \t]+")
+LINE_PREFIX_RE = re.compile(r"^([ \t]*)(\d+[.)]|[-+\u2022*]|>)[ \t]+")
 
 def keep_line_prefixes(src, out):
     """The model sometimes drops list numbers/bullets/quote markers. When it kept the same number of
